@@ -1,6 +1,6 @@
 {
   "name": "react-native-google-maps-services",
-  "version": "0.4.5",
+  "version": "0.5.0",
   "author": "Ho Yin Cheng",
   "description": "React Native client library for Google Maps API Web Services",
   "main": "./lib",
