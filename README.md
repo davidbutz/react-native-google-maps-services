@@ -1,13 +1,30 @@
-Node.js Client for Google Maps Services
+React Native Client for Google Maps Services
 =======================================
 
-Use Node.js? Want to [geocode][Geocoding API] something? Looking
-for [directions][Directions API]?
-This library brings the [Google Maps API Web Services] to your Node.js
-application. ![Analytics](https://maps-ga-beacon.appspot.com/UA-12846745-20/google-maps-services-js/readme?pixel)
+This is a fork of [google-maps-services-js](https://github.com/googlemaps/google-maps-services-js) that removes as many core Node.js modules as possible to allow developers to use the library in React Native without the need for shims via projects such as [node-libs-react-native](https://github.com/parshap/node-libs-react-native), [ReactNativify](https://github.com/philikon/ReactNativify), or [rn-nodeify](https://github.com/tradle/rn-nodeify).
 
-The Node.js Client for Google Maps Services is a Node.js Client library
-for the following Google Maps APIs:
+The current implementation leverages [axios](https://github.com/axios/axios) to replace http/https and adds the following dependencies:
+
+* [buffer](https://github.com/feross/buffer)
+* [crypto-js](https://github.com/brix/crypto-js)
+
+A detailed explanation of what was changed and why can be read here in my blog post here: [Forking google-maps-services-js](https://lovescomputers.com/blog/forking-google-maps-services-js/). It also goes into depth on what functionality was removed. For example, there is no cli anymore since that is not needed by React Native.
+
+**Disclaimer**
+
+While this current works, there are several outstanding issues that I need to fix before this can be considered production ready. A short list of the biggest issues are:
+
+* [ ] `geolocate` is no longer functional due to these outstanding issues/PR in axios: [#723](https://github.com/axios/axios/issues/723) [#1342](https://github.com/axios/axios/pull/1342) [#1121](https://github.com/axios/axios/issues/1121). Once the PR is merged and released, I will be able to update the dependencies.
+* [ ] A number of task related spec tests are failing due to the use of `setImmediate` over `process.nextTick`.
+* [ ] A large number of e2e tests fail. However, these same tests also fail in a clean checkout of the original [google-maps-services-js](https://github.com/googlemaps/google-maps-services-js).
+* [ ] Grabbing streaming responses via chunking is no longer possible.
+* [ ] Keep alive may no longer be functional (requires testing).
+
+## Intro
+
+This library brings the [Google Maps API Web Services] to your React Native application.
+
+The React Native Client for Google Maps Services is an [axios](https://github.com/axios/axios) backed Client library for the following Google Maps APIs:
 
  - [Directions API]
  - [Distance Matrix API]
@@ -30,15 +47,15 @@ apply to usage of the APIs when they're accessed through this library.
 
 ## Quick Start
 
-    $ npm install @google/maps
+    $ npm install react-native-google-maps-services
 
-**Note:** You'll need to have npm 2.7.0 or greater installed, since this library is hosted as a 
+**Note:** You'll need to have npm 2.7.0 or greater installed, since this library is hosted as a
 [scoped package](https://docs.npmjs.com/getting-started/scoped-packages).
 
 Create a new client object by calling `createClient()`
 
 ```js
-var googleMapsClient = require('@google/maps').createClient({
+var googleMapsClient = require('react-native-google-maps-services').createClient({
   key: 'your API key here'
 });
 ```
@@ -67,8 +84,8 @@ https://developers.google.com/maps/.
 
 Each Google Maps Web Service request requires an API key or client ID. API keys
 are freely available with a Google Account at
-https://developers.google.com/console. The type of API key you need is a 
-**Server key**. 
+https://developers.google.com/console. The type of API key you need is a
+**Server key**.
 
 To get an API key:
 
@@ -86,15 +103,15 @@ To get an API key:
     * Time Zone API
  1. Create a new **Server key**.
  1. If you'd like to restrict requests to a specific IP address, do so now.
- 
+
 For guided help, follow the instructions for the [Directions API][directions-key]. You only need one API key, but
 remember to enable all the APIs you need.
-For even more information, see the guide to [API keys][apikey]. 
+For even more information, see the guide to [API keys][apikey].
 
 When you have an API key, you can create a client object:
 
 ```js
-var googleMapsClient = require('@google/maps').createClient({
+var googleMapsClient = require('react-native-google-maps-services').createClient({
   key: 'your API key here'
 });
 ```
@@ -105,7 +122,7 @@ Google Maps APIs Premium Plan customers can use their [client ID and secret][cli
 instead of an API key.
 
 ```js
-var googleMapsClient = require('@google/maps').createClient({
+var googleMapsClient = require('react-native-google-maps-services').createClient({
   clientId: 'Add your client ID here',
   clientSecret: 'Add your client secret here',
 });
@@ -136,15 +153,6 @@ is to deprecate and give developers a year to update their code.
 If you find a bug, or have a feature suggestion, please
 [log an issue][issues]. If you'd like to contribute, please read
 [How to Contribute][contrib].
-
-## Command-line Interface
-
-Installing via npm also provides the `googlemaps` command-line utility,
-which can then be used to pipe JSON results to other command-line programs:
-
-```
-$ googlemaps directions --origin 'Sydney Town Hall' --destination 'Parramatta, NSW'
-```
 
 [apikey]: https://developers.google.com/maps/faq#keysystem
 [clientid]: https://developers.google.com/maps/documentation/business/webservices/auth
