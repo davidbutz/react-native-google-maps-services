@@ -1,17 +1,13 @@
 {
-  "name": "@google/maps",
+  "name": "react-native-google-maps-services",
   "version": "0.4.5",
-  "author": "Google Inc.",
-  "description": "Node.js client library for Google Maps API Web Services",
+  "author": "Ho Yin Cheng",
+  "description": "React Native client library for Google Maps API Web Services",
   "main": "./lib",
   "contributors": [
     {
-      "name": "Stephen Farrar",
-      "email": "step@google.com"
-    },
-    {
-      "name": "Stephen McDonald",
-      "email": "stephenmcd@google.com"
+      "name": "Ho Yin Cheng",
+      "email": "ho.yin.cheng@lovescomputers.com"
     }
   ],
   "scripts": {
@@ -20,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/googlemaps/google-maps-services-js.git"
+    "url": "https://github.com/hysan/react-native-google-maps-services.git"
   },
   "keywords": [
     "google",
@@ -36,13 +32,10 @@
     "navigation"
   ],
   "license": "Apache-2.0",
-  "bin": {
-    "googlemaps": "bin/run.js"
-  },
   "bugs": {
-    "url": "https://github.com/googlemaps/google-maps-services-js/issues"
+    "url": "https://github.com/hysan/react-native-google-maps-services/issues"
   },
-  "homepage": "https://github.com/googlemaps/google-maps-services-js",
+  "homepage": "https://github.com/hysan/react-native-google-maps-services",
   "dependencies": {
     "buffer": "^5.0.8",
     "crypto-js": "^3.1.9-1",
@@ -54,5 +47,5 @@
     "priorityqueuejs": "^1.0.0",
     "q": "^1.4.1"
   },
-  "files": ["lib", "bin"]
+  "files": ["lib"]
 }
