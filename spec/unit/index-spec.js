@@ -17,7 +17,6 @@
 
 var Promise = require('q').Promise;
 var MockClock = require('../mock-clock');
-var parse = require('url').parse;
 
 describe('index.js:', function() {
   var createClient, requestAndSucceed, requestAndFail, requestTimes, clock;
@@ -64,7 +63,7 @@ describe('index.js:', function() {
         clientId: 'foo',
         clientSecret: 'a2V5',
         makeUrlRequest: function(url) {
-          expect(parse(url, true).query.signature)
+          expect(url.params.signature)
           .toBe('Wqh6_J7zAuZHQOQgHwOehx4Wr6g=');
           done();
         }
@@ -78,7 +77,7 @@ describe('index.js:', function() {
         clientSecret: 'a2V5',
         channel: 'bar',
         makeUrlRequest: function(url) {
-          expect(parse(url, true).query.channel)
+          expect(url.params.channel)
           .toBe('bar');
           done();
         }
@@ -92,7 +91,7 @@ describe('index.js:', function() {
       createClient({
         language: 'en-AU',
         makeUrlRequest: function(url) {
-          expect(parse(url, true).query.language)
+          expect(url.params.language)
           .toBe('en-AU');
           done();
         }
@@ -104,7 +103,7 @@ describe('index.js:', function() {
       createClient({
         language: 'en-AU',
         makeUrlRequest: function(url) {
-          expect(parse(url, true).query.language)
+          expect(url.params.language)
           .toBe('en-GB');
           done();
         }
